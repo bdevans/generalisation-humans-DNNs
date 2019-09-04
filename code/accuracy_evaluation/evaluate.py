@@ -162,14 +162,17 @@ def main():
 
     # define path to model checkpoints. Within checkpoints/ , every
     # model should have its own directory.
-    model_dir = "/gpfs01/bethge/home/rgeirhos/shared_from_jonas/checkpoints/"
+#     model_dir = "/gpfs01/bethge/home/rgeirhos/shared_from_jonas/checkpoints/"
+    model_dir = "/work/models/"
 
     # the directory where every experiment has its own subdirectory (structure
     # described on the top of this file=
-    experiment_dir = "/gpfs01/bethge/home/rgeirhos/experiment-stimuli/"
+#     experiment_dir = "/gpfs01/bethge/home/rgeirhos/experiment-stimuli/"
+    experiment_dir = "/work/data/16-class-ImageNet/experiments/"
  
     # the directory where all results should be stored
-    resultdir = "/gpfs01/bethge/home/rgeirhos/object-recognition-combined/raw-data/fine-tuning/"
+#     resultdir = "/gpfs01/bethge/home/rgeirhos/object-recognition-combined/raw-data/fine-tuning/"
+    resultdir = "/work/results/"
 
 
     # Step 2: run evaluation
