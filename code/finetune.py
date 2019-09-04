@@ -44,12 +44,14 @@ _NUM_TRAIN_FILES = 1024
 _SHUFFLE_BUFFER = 1500
 
 
+sys.path.append('/work/generalisation-humans-DNNs/code/accuracy_evaluation/')
 import imagenet_16
 
-sys.path.append('./object-recognition-combined/code/')
+# sys.path.append('./object-recognition-combined/code/')
 import image_manipulation
 
-import additional_image_manipulations
+# import additional_image_manipulations
+import image_manipulation as additional_image_manipulations
 
 
 def as_perturbation_fn(f):
@@ -513,6 +515,43 @@ def imagenet_finetuning_model_fn(
     return result
 
 
+# from models.official.utils.arg_parsers import parsers
+
+# class ResnetArgParser(argparse.ArgumentParser):
+#     """Arguments for configuring and running a Resnet Model."""
+
+#     def __init__(self, resnet_size_choices=None):
+#         super(ResnetArgParser, self).__init__(parents=[
+#           parsers.BaseParser(multi_gpu=False),
+#           parsers.PerformanceParser(num_parallel_calls=False),
+#           parsers.ImageModelParser(),
+#           parsers.ExportParser(),
+#           parsers.BenchmarkParser(),
+#         ])
+
+#         self.add_argument(
+#             '--version', '-v', type=int, choices=[1, 2],
+#             default=resnet_model.DEFAULT_VERSION,
+#             help='Version of ResNet. (1 or 2) See README.md for details.'
+#         )
+
+#         self.add_argument(
+#             '--resnet_size', '-rs', type=int, default=50,
+#             choices=resnet_size_choices,
+#             help='[default: %(default)s] The size of the ResNet model to use.',
+#             metavar='<RS>' if resnet_size_choices is None else None
+#         )
+
+#     def parse_args(self, args=None, namespace=None):
+#         args = super(ResnetArgParser, self).parse_args(
+#             args=args, namespace=namespace)
+
+#         # handle coupling between dtype and loss_scale
+#         parsers.parse_dtype_info(args)
+
+#         return args
+
+
 class FinetuningArgParser(argparse.ArgumentParser):
     """Arguments for configuring and finetuning a Resnet Model.
     """
@@ -521,6 +560,9 @@ class FinetuningArgParser(argparse.ArgumentParser):
         super(FinetuningArgParser, self).__init__(parents=[
             resnet_run_loop.ResnetArgParser(
                 resnet_size_choices=[18, 34, 50, 101, 152, 200])
+#             ResnetArgParser(resnet_size_choices=[18, 34, 50, 101, 152, 200])
+#             resnet_run_loop.define_resnet_flags(
+#                 resnet_size_choices=['18', '34', '50', '101', '152', '200'])
         ], add_help=False)
 
         self.add_argument('--perturbation', type=str, default=None)
@@ -532,8 +574,11 @@ class FinetuningArgParser(argparse.ArgumentParser):
 
 
 def main(argv):
-    parser = FinetuningArgParser()
-    flags = parser.parse_args(args=argv[1:])
+#     parser = FinetuningArgParser()
+#     flags = parser.parse_args(args=argv[1:])
+    from resnet_run_loop import flags
+    resnet_run_loop.define_resnet_flags(resnet_size_choices=['18', '34', '50', '101', '152', '200'])
+    print(flags)
     perturbation = flags.perturbation
 
     print('flags', flags)
