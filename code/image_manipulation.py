@@ -4,7 +4,8 @@ from skimage.color import rgb2gray, rgb2grey
 from scipy.ndimage.filters import gaussian_filter
 from scipy import fftpack as fp
 from skimage.io import imread, imsave
-from scipy.misc import toimage
+from PIL import Image
+# from scipy.misc import toimage
 import numpy as np
 import sys
 
@@ -24,8 +25,9 @@ def save_img(image, imgname, use_JPEG=False):
     if use_JPEG:
         imsave(imgname+".JPEG", image) 
     else:
-        toimage(image,
-                cmin=0.0, cmax=1.0).save(imgname+".png")
+#         toimage(image,
+#                 cmin=0.0, cmax=1.0).save(imgname+".png")
+        Image.fromarray(image, cmin=0.0, cmax=1.0).save(imgname+".png")
 
 
 ###########################################################
