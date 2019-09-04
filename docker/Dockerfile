@@ -5,7 +5,7 @@ LABEL maintainer="Ben Evans <ben.d.evans@gmail.com>"
 # ARG _PY_SUFFIX=${USE_PYTHON_3_NOT_2:+3}
 # ARG PYTHON=python${_PY_SUFFIX}
 # ARG PIP=pip${_PY_SUFFIX}
-ARG PIP=pip3
+ARG PIP=pip
 
 # Options:
 #   tensorflow
