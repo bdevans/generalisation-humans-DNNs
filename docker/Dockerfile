@@ -5,7 +5,7 @@ LABEL maintainer="Ben Evans <ben.d.evans@gmail.com>"
 # ARG _PY_SUFFIX=${USE_PYTHON_3_NOT_2:+3}
 # ARG PYTHON=python${_PY_SUFFIX}
 # ARG PIP=pip${_PY_SUFFIX}
-ARG PIP=pip3
+ARG PIP=pip
 
 # Options:
 #   tensorflow
@@ -26,6 +26,7 @@ RUN ${PIP} install ${TF_PACKAGE}${TF_PACKAGE_VERSION:+==${TF_PACKAGE_VERSION}}
 # RUN ${PIP} install jupyter_http_over_ws
 # RUN jupyter serverextension enable --py jupyter_http_over_ws
 
+USER root
 RUN mkdir -p /tf/tensorflow-tutorials && chmod -R a+rwx /tf/
 RUN mkdir /.local && chmod a+rwx /.local
 # RUN apt-get install -y --no-install-recommends wget
@@ -38,6 +39,7 @@ RUN wget https://raw.githubusercontent.com/tensorflow/docs/master/site/en/tutori
 RUN wget https://raw.githubusercontent.com/tensorflow/docs/master/site/en/tutorials/keras/text_classification_with_hub.ipynb
 # COPY readme-for-jupyter.md README.md
 # RUN apt-get autoremove -y && apt-get remove -y wget
+USER $NB_USER
 # WORKDIR /tf
 # EXPOSE 8888
 WORKDIR /work
