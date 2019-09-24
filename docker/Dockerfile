@@ -44,6 +44,7 @@ USER $NB_USER
 # EXPOSE 8888
 WORKDIR /work
 
-# RUN ${PYTHON} -m ipykernel.kernelspec
+# EXPOSE 6006 8888
+EXPOSE 6006
 
 # CMD ["bash", "-c", "source /etc/bash.bashrc && jupyter notebook --notebook-dir=/tf --ip 0.0.0.0 --no-browser --allow-root"]
