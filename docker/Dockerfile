@@ -16,7 +16,7 @@ ARG PIP=pip3
 # Installs the latest version by default.
 ARG TF_PACKAGE=tensorflow-gpu
 # ARG TF_PACKAGE_VERSION=
-ARG TF_PACKAGE_VERSION=2.0.0-rc0
+ARG TF_PACKAGE_VERSION=2.0.0-rc2
 RUN ${PIP} install ${TF_PACKAGE}${TF_PACKAGE_VERSION:+==${TF_PACKAGE_VERSION}}
 
 # COPY bashrc /etc/bash.bashrc
