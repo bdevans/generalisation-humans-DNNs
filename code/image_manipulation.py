@@ -521,7 +521,7 @@ if __name__ == "__main__":
     print("""This main method should generate manipulated
            images in the directory where it was executed.""")
 
-    use_JPEG = False # either JPEG or PNG
+    use_JPEG = True # either JPEG or PNG
     img = imload_rgb("test_image.JPEG")
 
     ###################################################
