@@ -27,7 +27,7 @@ def save_img(image, imgname, use_JPEG=False):
     else:
 #         toimage(image,
 #                 cmin=0.0, cmax=1.0).save(imgname+".png")
-        Image.fromarray(image, cmin=0.0, cmax=1.0).save(imgname+".png")
+        Image.fromarray(image).convert('L').save(imgname+".png")
 
 
 ###########################################################
