@@ -145,16 +145,26 @@ class HumanCategories(object):
         else:
             return None  # np.nan
 
-hc = HumanCategories()
-
-# for wnid, hypernym in hc.wnid_hyp_red.items():
-#     assert hypernym == hc.get_name_from_WNID(wnid)
-
+    def check(self):
 # Check for differences between internal and file-listed WNIDs
-wnids_file = [wnid for wnid in hc.ind_wnid if hc.wnid_hyp[wnid]]  # Gather WNIDs from file
-print(f"WNIDs in {os.path.basename(hc.wnid_ordering)}: {len(wnids_file)}")
-print(f"WNIDs in 'human_categories.py': {len(hc.wnid_hyp_red)}")  # == len(wnids)
-missing = set(hc.wnid_hyp_red) - set(wnids_file)
+        wnids_file = [wnid for wnid in self.ind_wnid if self.wnid_hyp[wnid]]  # Gather WNIDs from file
+        print(f"WNIDs in {os.path.basename(self.wnid_ordering)}: {len(wnids_file)}")
+        print(f"WNIDs in 'human_categories.py': {len(self.wnid_hyp_red)}")  # == len(wnids)
+        missing = set(self.wnid_hyp_red) - set(wnids_file)
 print(f"Missing hypernyms: {len(missing)}")
 for wnid in missing:
-    print(wnid, hc.wnid_hyp_red[wnid])
+            print(wnid, self.wnid_hyp_red[wnid])
+
+# hc = HumanCategories()
+
+# # for wnid, hypernym in hc.wnid_hyp_red.items():
+# #     assert hypernym == hc.get_name_from_WNID(wnid)
+
+# # Check for differences between internal and file-listed WNIDs
+# wnids_file = [wnid for wnid in hc.ind_wnid if hc.wnid_hyp[wnid]]  # Gather WNIDs from file
+# print(f"WNIDs in {os.path.basename(hc.wnid_ordering)}: {len(wnids_file)}")
+# print(f"WNIDs in 'human_categories.py': {len(hc.wnid_hyp_red)}")  # == len(wnids)
+# missing = set(hc.wnid_hyp_red) - set(wnids_file)
+# print(f"Missing hypernyms: {len(missing)}")
+# for wnid in missing:
+#     print(wnid, hc.wnid_hyp_red[wnid])
