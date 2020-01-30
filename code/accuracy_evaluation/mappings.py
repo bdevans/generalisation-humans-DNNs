@@ -88,19 +88,23 @@ class HumanCategories(object):
         
         # Download ImageNet mappings: {str(ind): [wnid, label] for ind in range(1000)}
         self.CLASS_INDEX = requests.get(self.CLASS_INDEX_PATH).json()
+
+        # Create dictionary in the same format as the original: {str(ind): [wnid, label]}
+        self.CLASS_INDEX_16 = {str(ind): [self.hyp_wnids[hyp], hyp] 
+                               for ind, hyp in enumerate(self.hyp_wnids)}
         
-        # Create WNID --> hypernym mapping from internal dictionary
+        # Create WNID (231) --> hypernym mapping from internal dictionary
         self.wnid_hyp_red = {wnid: hyp for hyp, wnids in self.hyp_wnids.items()
                                        for wnid in wnids}
 
-        # Load ordered WNIDs from file
+        # Load ordered WNIDs (1000) from file
         with open(self.wnid_ordering, 'r') as wof:
             self.ind_wnid = [line.split()[0] for line in wof]
 
-        # Create WNID --> hypernym mapping from full WNIDs in file
+        # Create WNID (1000) --> hypernym mapping from full WNIDs in file
         self.wnid_hyp = {wnid: self.wnid_hyp_red.get(wnid) for wnid in self.ind_wnid}
         
-        # Create hypernym --> index mapping
+        # Create hypernym (16) --> index mapping
         self.hyp_ind = {hyp: ind for ind, hyp in enumerate(list(self.hyp_wnids))}
 
         # Add some checks
@@ -144,15 +148,15 @@ class HumanCategories(object):
             return hypernym
         else:
             return None  # np.nan
-
+    
     def check(self):
-# Check for differences between internal and file-listed WNIDs
+        # Check for differences between internal and file-listed WNIDs
         wnids_file = [wnid for wnid in self.ind_wnid if self.wnid_hyp[wnid]]  # Gather WNIDs from file
         print(f"WNIDs in {os.path.basename(self.wnid_ordering)}: {len(wnids_file)}")
         print(f"WNIDs in 'human_categories.py': {len(self.wnid_hyp_red)}")  # == len(wnids)
         missing = set(self.wnid_hyp_red) - set(wnids_file)
-print(f"Missing hypernyms: {len(missing)}")
-for wnid in missing:
+        print(f"Missing hypernyms: {len(missing)}")
+        for wnid in missing:
             print(wnid, self.wnid_hyp_red[wnid])
 
 # hc = HumanCategories()
